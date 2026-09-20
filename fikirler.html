@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İş Kurma Fikirleri — Takip Merkezi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Takip Merkezi</a>
+  <div class="topnav-links">
+    <a href="kanallar.html">Başvuru Kanalları</a>
+    <a href="cvler.html">CV'ler</a>
+    <a href="basvurular.html">Başvurulan İşler</a>
+    <a href="fikirler.html" class="active">İş Kurma Fikirleri</a>
+    <a href="hobiler.html">Hobiler</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <h1>İş Kurma Fikirleri Takip</h1>
+  <p>Her fikir için durum, notlar, sıradaki adım ve kontrol listesi.</p>
+</div>
+<div id="syncBanner" class="sync-banner"></div>
+
+<main class="container">
+  <div id="fikirList" class="idea-list"></div>
+  <form id="fikirForm" class="inline-form">
+    <input type="text" id="fikirAd" placeholder="Yeni fikir adı" required>
+    <button type="submit" class="btn btn-add">+ Fikir Ekle</button>
+  </form>
+</main>
+
+<footer class="footer">
+  <span id="saveStatus">Hazır</span>
+</footer>
+
+<template id="tpl-idea">
+  <div class="row-card idea-card">
+    <div class="cv-card-header">
+      <input class="field idea-name-field" placeholder="Fikir adı">
+      <select class="field stage-field">
+        <option value="fikir">Fikir Aşaması</option>
+        <option value="arastirma">Araştırma</option>
+        <option value="test">Test Ediliyor</option>
+        <option value="aktif">Aktif</option>
+        <option value="durduruldu">Durduruldu</option>
+      </select>
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+    <label class="field-label">Notlar</label>
+    <textarea class="field idea-notes-field" placeholder="Genel notlar, durum, gözlemler..."></textarea>
+    <label class="field-label">Sıradaki adım</label>
+    <input class="field idea-next-field" placeholder="Bir sonraki somut adım">
+    <label class="field-label">Kontrol listesi</label>
+    <div class="checklist"></div>
+    <form class="inline-form checklist-form">
+      <input type="text" class="checklist-input" placeholder="Yeni madde ekle">
+      <button type="submit" class="btn btn-add">+ Ekle</button>
+    </form>
+    <div class="row-footer"><span class="updated-label"></span></div>
+  </div>
+</template>
+
+<template id="tpl-checklist-item">
+  <label class="checklist-item">
+    <input type="checkbox" class="checklist-check">
+    <span class="checklist-text"></span>
+    <button class="icon-btn del-btn-small" title="Sil">✕</button>
+  </label>
+</template>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -20,13 +20,13 @@
 // ============================================================
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAGSj4dH0Ha1AyMUA7cSVdEi24EOe1VcNE",
-  authDomain: "envanter-720f7.firebaseapp.com",
-  databaseURL: "https://envanter-720f7-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "envanter-720f7",
-  storageBucket: "envanter-720f7.firebasestorage.app",
-  messagingSenderId: "216833894102",
-  appId: "1:216833894102:web:52b3debc60e3beefac8b77"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 // Envanter verileriyle çakışmaması için bu sitenin verileri bu kök

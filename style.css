@@ -23,14 +23,48 @@ body {
   line-height: 1.5;
 }
 
-.topbar {
-  background: linear-gradient(135deg, var(--bg-elev-2), var(--bg-elev));
+/* ---------- Üst gezinme ---------- */
+.topnav {
+  background: var(--bg-elev);
   border-bottom: 1px solid var(--border);
-  padding: 28px 20px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-.topbar-inner { max-width: 860px; margin: 0 auto; }
-.topbar h1 { margin: 0 0 4px; font-size: 1.6rem; }
-.subtitle { margin: 0; color: var(--text-dim); font-size: 0.95rem; }
+.topnav .brand {
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1.05rem;
+}
+.topnav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.topnav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+}
+.topnav-links a:hover { color: var(--text); background: var(--bg-elev-2); }
+.topnav-links a.active { color: var(--text); background: var(--accent-dim); }
+
+.page-head {
+  max-width: 860px;
+  margin: 24px auto 0;
+  padding: 0 20px;
+}
+.page-head h1 { margin: 0 0 4px; font-size: 1.5rem; }
+.page-head p { margin: 0; color: var(--text-dim); font-size: 0.92rem; }
 
 .sync-banner {
   max-width: 860px;
@@ -46,70 +80,45 @@ body {
 
 .container {
   max-width: 860px;
-  margin: 24px auto 80px;
+  margin: 20px auto 80px;
   padding: 0 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.group {
+/* ---------- Ana sayfa: bölüm başlığı + kart grid ---------- */
+.section-block { margin-bottom: 6px; }
+.section-block h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-dim);
+  margin: 0 0 10px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.nav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   background: var(--bg-elev);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.group-header, .sub-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: transparent;
-  border: none;
+  padding: 16px;
+  text-decoration: none;
   color: var(--text);
-  cursor: pointer;
-  font-family: inherit;
+  transition: border-color 0.15s ease, transform 0.1s ease;
 }
+.nav-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.nav-card .icon { font-size: 1.4rem; }
+.nav-card .title { font-weight: 600; font-size: 1.02rem; }
+.nav-card .desc { color: var(--text-dim); font-size: 0.85rem; }
 
-.group-header {
-  padding: 16px 18px;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-.group-title::before { content: "📁 "; }
-
-.chevron { color: var(--text-dim); transition: transform 0.2s ease; }
-.group.open > .group-header .chevron,
-.subsection.open > .sub-header .chevron { transform: rotate(180deg); }
-
-.group-body {
-  display: none;
-  padding: 0 18px 18px;
-  flex-direction: column;
-  gap: 12px;
-}
-.group.open > .group-body { display: flex; }
-
-.subsection {
-  background: var(--bg-elev-2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.sub-header {
-  padding: 12px 14px;
-  font-size: 0.98rem;
-  font-weight: 600;
-}
-.sub-body {
-  display: none;
-  padding: 0 14px 14px;
-  flex-direction: column;
-  gap: 10px;
-}
-.subsection.open > .sub-body { display: flex; }
-
+/* ---------- Bölüm başlığı (alt sayfalarda) ---------- */
 .mini-heading {
   margin: 6px 0 0;
   font-size: 0.85rem;
@@ -118,9 +127,9 @@ body {
   color: var(--text-dim);
 }
 
-/* Genel kart */
+/* ---------- Genel kart ---------- */
 .row-card {
-  background: var(--bg);
+  background: var(--bg-elev);
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px;
@@ -129,7 +138,6 @@ body {
   gap: 8px;
 }
 
-/* Kanal listesi */
 .channel-list, .job-list, .cv-list, .idea-list, .hobby-list {
   display: flex;
   flex-direction: column;
@@ -145,7 +153,7 @@ body {
 .row-title.link, .row-title.plain { color: var(--accent); text-decoration: none; font-weight: 500; }
 .row-title.plain { color: var(--text); }
 
-/* Formlar */
+/* ---------- Formlar ---------- */
 .inline-form {
   display: flex;
   flex-wrap: wrap;
@@ -196,7 +204,7 @@ input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); bo
 .icon-btn:hover { color: var(--red); background: rgba(217, 97, 95, 0.12); }
 .del-btn-small { font-size: 0.75rem; padding: 2px 6px; }
 
-/* CV / fikir / hobi kartları */
+/* ---------- CV / fikir / hobi / iş kartları ---------- */
 .cv-card, .idea-card, .hobby-card, .job-card { padding: 14px; gap: 10px; }
 .cv-card-header {
   display: flex;
@@ -215,10 +223,8 @@ input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); bo
 .updated-label { font-size: 0.75rem; color: var(--text-dim); }
 
 .status-field { min-width: 150px; }
-.status-field option[value="teklif"] { color: var(--green); }
-.status-field option[value="reddedildi"] { color: var(--red); }
 
-/* Checklist */
+/* ---------- Kontrol listesi ---------- */
 .checklist { display: flex; flex-direction: column; gap: 4px; }
 .checklist-item {
   display: flex;
@@ -231,7 +237,7 @@ input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); bo
 .checklist-text { flex: 1; }
 .checklist-form { margin-top: 2px; }
 
-/* Log listesi (hobiler) */
+/* ---------- Log listesi (hobiler) ---------- */
 .log-list { display: flex; flex-direction: column; gap: 6px; }
 .log-item {
   display: flex;
@@ -246,6 +252,13 @@ input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); bo
 .log-text { flex: 1; }
 .log-form { margin-top: 2px; }
 
+.empty-state {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin: 4px 0;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
@@ -259,15 +272,9 @@ input:focus, textarea:focus, select:focus { outline: 1px solid var(--accent); bo
   text-align: center;
 }
 
-.empty-state {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  font-style: italic;
-  margin: 4px 0;
-}
-
 @media (max-width: 600px) {
-  .container { padding: 0 12px; }
+  .container, .page-head, .sync-banner { padding-left: 16px; padding-right: 16px; }
   .inline-form input { min-width: 100%; }
   .cv-card-header { flex-direction: column; align-items: stretch; }
+  .topnav { flex-direction: column; align-items: flex-start; }
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV'ler — Takip Merkezi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Takip Merkezi</a>
+  <div class="topnav-links">
+    <a href="kanallar.html">Başvuru Kanalları</a>
+    <a href="cvler.html" class="active">CV'ler</a>
+    <a href="basvurular.html">Başvurulan İşler</a>
+    <a href="fikirler.html">İş Kurma Fikirleri</a>
+    <a href="hobiler.html">Hobiler</a>
+  </div>
+</nav>
+
+<div class="page-head">
+  <h1>Güncel CV'ler</h1>
+  <p>Her CV'nin kendi içeriği ve o CV'ye özgü ön yazısı burada.</p>
+</div>
+<div id="syncBanner" class="sync-banner"></div>
+
+<main class="container">
+  <div id="cvList" class="cv-list"></div>
+  <form id="cvForm" class="inline-form">
+    <input type="text" id="cvAd" placeholder="Yeni CV adı (ör. Backend Developer CV)" required>
+    <button type="submit" class="btn btn-add">+ CV Ekle</button>
+  </form>
+</main>
+
+<footer class="footer">
+  <span id="saveStatus">Hazır</span>
+</footer>
+
+<template id="tpl-cv">
+  <div class="row-card cv-card">
+    <div class="cv-card-header">
+      <input class="field cv-name-field" placeholder="CV adı">
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+    <label class="field-label">CV içeriği / dosya linki</label>
+    <textarea class="field cv-content-field" placeholder="CV metnini yapıştır ya da dosyaya bir link bırak (Drive, GitHub vs.)"></textarea>
+    <label class="field-label">Bu CV'ye özgü ön yazı (cover letter)</label>
+    <textarea class="field cover-letter-field" placeholder="Bu CV ile yapılan başvurularda kullanılacak, o pozisyona özgü ön yazı..."></textarea>
+    <div class="row-footer">
+      <span class="updated-label"></span>
+      <button class="btn btn-copy copy-btn" type="button">Ön Yazıyı Kopyala</button>
+    </div>
+  </div>
+</template>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
