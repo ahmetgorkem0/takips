@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Takip Merkezi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <h1>Takip Merkezi</h1>
+    <p class="subtitle">İş bulma, iş kurma fikirleri ve hobiler — tek yerden</p>
+  </div>
+  <div id="syncBanner" class="sync-banner"></div>
+</header>
+
+<main class="container">
+
+  <!-- İŞ BULMA -->
+  <section class="group" data-group="isBulma">
+    <button class="group-header" type="button">
+      <span class="group-title">İş Bulma</span>
+      <span class="chevron">▾</span>
+    </button>
+    <div class="group-body">
+
+      <div class="subsection" data-sub="kanallar">
+        <button class="sub-header" type="button">
+          <span>Başvuru Kanalları</span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sub-body">
+          <div id="kanallarList" class="channel-list"></div>
+          <form id="kanalForm" class="inline-form">
+            <input type="text" id="kanalAd" placeholder="Kanal adı (ör. LinkedIn)" required>
+            <input type="url" id="kanalUrl" placeholder="https://... (opsiyonel)">
+            <button type="submit" class="btn btn-add">+ Ekle</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="subsection" data-sub="cvler">
+        <button class="sub-header" type="button">
+          <span>Güncel CV'ler</span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sub-body">
+          <div id="cvList" class="cv-list"></div>
+          <form id="cvForm" class="inline-form">
+            <input type="text" id="cvAd" placeholder="Yeni CV adı (ör. Backend Developer CV)" required>
+            <button type="submit" class="btn btn-add">+ CV Ekle</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="subsection" data-sub="basvurular">
+        <button class="sub-header" type="button">
+          <span>Başvurulan İşler</span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sub-body">
+
+          <h3 class="mini-heading">Dönüş Alınanlar (Mülakat Yaptıklarım)</h3>
+          <div id="donusAlinanlarList" class="job-list"></div>
+          <form id="donusAlinanForm" class="inline-form">
+            <input type="text" id="donusFirma" placeholder="Firma adı" required>
+            <input type="text" id="donusPozisyon" placeholder="Pozisyon (opsiyonel)">
+            <button type="submit" class="btn btn-add">+ Ekle</button>
+          </form>
+
+          <h3 class="mini-heading">Hâlâ Dönüş Bekleyenler</h3>
+          <div id="halaBeklenenlerList" class="job-list"></div>
+          <form id="bekleyenForm" class="inline-form">
+            <input type="text" id="bekleyenFirma" placeholder="Firma adı" required>
+            <input type="text" id="bekleyenPozisyon" placeholder="Pozisyon (opsiyonel)">
+            <button type="submit" class="btn btn-add">+ Ekle</button>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- İŞ KURMA FİKİRLERİ TAKİP -->
+  <section class="group" data-group="isKurma">
+    <button class="group-header" type="button">
+      <span class="group-title">İş Kurma Fikirleri Takip</span>
+      <span class="chevron">▾</span>
+    </button>
+    <div class="group-body">
+      <div id="fikirList" class="idea-list"></div>
+      <form id="fikirForm" class="inline-form">
+        <input type="text" id="fikirAd" placeholder="Yeni fikir adı" required>
+        <button type="submit" class="btn btn-add">+ Fikir Ekle</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- HOBİLER -->
+  <section class="group" data-group="hobiler">
+    <button class="group-header" type="button">
+      <span class="group-title">Hobiler</span>
+      <span class="chevron">▾</span>
+    </button>
+    <div class="group-body">
+      <div id="hobiList" class="hobby-list"></div>
+      <form id="hobiForm" class="inline-form">
+        <input type="text" id="hobiAd" placeholder="Yeni hobi adı" required>
+        <button type="submit" class="btn btn-add">+ Hobi Ekle</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span id="saveStatus">Hazır</span>
+</footer>
+
+<!-- Şablonlar -->
+<template id="tpl-channel">
+  <div class="row-card channel-card">
+    <div class="row-main">
+      <a class="row-title link" target="_blank" rel="noopener"></a>
+      <span class="row-title plain"></span>
+    </div>
+    <button class="icon-btn del-btn" title="Sil">✕</button>
+  </div>
+</template>
+
+<template id="tpl-job">
+  <div class="row-card job-card">
+    <div class="row-main">
+      <input class="field company-field" placeholder="Firma">
+      <input class="field position-field" placeholder="Pozisyon">
+      <select class="field status-field">
+        <option value="beklemede">Beklemede</option>
+        <option value="mulakat">Mülakat Aşamasında</option>
+        <option value="teklif">Teklif Aldım</option>
+        <option value="reddedildi">Reddedildi</option>
+        <option value="vazgectim">Vazgeçtim</option>
+      </select>
+    </div>
+    <textarea class="field notes-field" placeholder="Notlar (tarih, aşama, kişi...)"></textarea>
+    <div class="row-footer">
+      <span class="updated-label"></span>
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-cv">
+  <div class="row-card cv-card">
+    <div class="cv-card-header">
+      <input class="field cv-name-field" placeholder="CV adı">
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+    <label class="field-label">CV içeriği / dosya linki</label>
+    <textarea class="field cv-content-field" placeholder="CV metnini yapıştır ya da dosyaya bir link bırak (Drive, GitHub vs.)"></textarea>
+    <label class="field-label">Bu CV'ye özgü ön yazı (cover letter)</label>
+    <textarea class="field cover-letter-field" placeholder="Bu CV ile yapılan başvurularda kullanılacak, o pozisyona özgü ön yazı..."></textarea>
+    <div class="row-footer">
+      <span class="updated-label"></span>
+      <button class="btn btn-copy copy-btn" type="button">Ön Yazıyı Kopyala</button>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-idea">
+  <div class="row-card idea-card">
+    <div class="cv-card-header">
+      <input class="field idea-name-field" placeholder="Fikir adı">
+      <select class="field stage-field">
+        <option value="fikir">Fikir Aşaması</option>
+        <option value="arastirma">Araştırma</option>
+        <option value="test">Test Ediliyor</option>
+        <option value="aktif">Aktif</option>
+        <option value="durduruldu">Durduruldu</option>
+      </select>
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+    <label class="field-label">Notlar</label>
+    <textarea class="field idea-notes-field" placeholder="Genel notlar, durum, gözlemler..."></textarea>
+    <label class="field-label">Sıradaki adım</label>
+    <input class="field idea-next-field" placeholder="Bir sonraki somut adım">
+    <label class="field-label">Kontrol listesi</label>
+    <div class="checklist"></div>
+    <form class="inline-form checklist-form">
+      <input type="text" class="checklist-input" placeholder="Yeni madde ekle">
+      <button type="submit" class="btn btn-add">+ Ekle</button>
+    </form>
+    <div class="row-footer"><span class="updated-label"></span></div>
+  </div>
+</template>
+
+<template id="tpl-checklist-item">
+  <label class="checklist-item">
+    <input type="checkbox" class="checklist-check">
+    <span class="checklist-text"></span>
+    <button class="icon-btn del-btn-small" title="Sil">✕</button>
+  </label>
+</template>
+
+<template id="tpl-hobby">
+  <div class="row-card hobby-card">
+    <div class="cv-card-header">
+      <input class="field hobby-name-field" placeholder="Hobi adı">
+      <select class="field level-field">
+        <option value="baslangic">Başlangıç</option>
+        <option value="orta">Orta</option>
+        <option value="ileri">İleri</option>
+      </select>
+      <button class="icon-btn del-btn" title="Sil">✕</button>
+    </div>
+    <label class="field-label">Kaynaklar / notlar</label>
+    <textarea class="field hobby-resources-field" placeholder="Kurs linki, kitap, kaynak, genel not..."></textarea>
+    <label class="field-label">Günlük / ilerleme kaydı</label>
+    <div class="log-list"></div>
+    <form class="inline-form log-form">
+      <input type="text" class="log-input" placeholder="Bugün ne yaptın / ne öğrendin?">
+      <button type="submit" class="btn btn-add">+ Kaydet</button>
+    </form>
+  </div>
+</template>
+
+<template id="tpl-log-item">
+  <div class="log-item">
+    <span class="log-date"></span>
+    <span class="log-text"></span>
+    <button class="icon-btn del-btn-small" title="Sil">✕</button>
+  </div>
+</template>
+
+<!-- Firebase (opsiyonel senkron) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
